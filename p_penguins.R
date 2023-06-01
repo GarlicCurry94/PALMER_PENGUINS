@@ -1,5 +1,5 @@
 getwd()
-setwd("~/R PROJ/rprojext")
+setwd("~/GitHub/PALMER_PENGUINS")
 getwd()
 
 ls()
@@ -9,6 +9,7 @@ install.packages("gapminder")
 install.packages("rmarkdown")
 install.packages("tinytex")
 install.packages("ISLR2")
+install.package("palmerpenguins")
 
 library(readxl)
 library(tidyverse)
@@ -52,15 +53,19 @@ View (adelie)
 
 ggplot(adelie, aes(x = bill_depth_mm,
                    y = bill_length_mm)) + geom_point()
+ggsave("p_penguins_scatter.png")
+
 
 pp_bill_model <- lm(bill_length_mm ~ bill_depth_mm,
                     data = adelie)
 plot(pp_bill_model)
 
+
 ggplot(adelie, aes(x = bill_depth_mm,
                    y = bill_length_mm)) + geom_point()+
   geom_smooth(method = "lm",
               level = .99)
+ggsave("p_penguins_bill_model.png")
 
 predict(pp_bill_model)
 
@@ -81,15 +86,16 @@ ggplot(adelie_new, aes(x = bill_depth_mm)) +
   geom_line(aes(y = lwr),
             col = "navy",
             linetype = "dashed")
+ggsave("p_penguins_CI.png")
 
 ggplot(penguins, aes(x = species, y = flipper_length_mm)) +
   geom_boxplot()
-ggsave("p_penguins_boxplot.pdf")
+ggsave("p_penguins_boxplot.png")
 
 ggplot(penguins, aes(x = flipper_length_mm)) +
   geom_histogram() +
   facet_wrap(~species, ncol = 1)
-ggsave("p_penguins_species_dist.pdf")
+ggsave("p_penguins_species_dist.png")
 
 ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species))+
   geom_violin()+
